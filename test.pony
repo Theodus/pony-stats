@@ -9,6 +9,7 @@ actor Main is TestList
     test(_TestQuickSorter)
     test(_TestMean)
     test(_TestMedian)
+    test(_TestMode)
 
 class iso _TestQuickSorter is UnitTest
   fun name(): String => "QuickSorter"
@@ -45,3 +46,10 @@ class iso _TestMedian is UnitTest
     h.assert_eq[F64](3, stats.median_low(b))
     h.assert_eq[F64](3, stats.median_high(a))
     h.assert_eq[F64](5, stats.median_high(b))
+
+class iso _TestMode is UnitTest
+  fun name(): String => "Stats.mode"
+
+  fun apply(h: TestHelper) ? =>
+    let a: Array[USize] = [1, 1, 2, 3, 3, 3, 3, 4]
+    h.assert_eq[USize](3, Stats[USize].mode(a))
