@@ -10,6 +10,8 @@ actor Main is TestList
     test(_TestMean)
     test(_TestMedian)
     test(_TestMode)
+    test(_TestVariance)
+    test(_TestDeviation)
 
 class iso _TestQuickSorter is UnitTest
   fun name(): String => "QuickSorter"
@@ -23,33 +25,48 @@ class iso _TestQuickSorter is UnitTest
     end
 
 class iso _TestMean is UnitTest
-  fun name(): String => "Stats.mean"
+  fun name(): String => "Mean"
 
   fun apply(h: TestHelper) ? =>
     let a: Array[USize] = [1, 2, 3, 4, 4]
-    h.assert_eq[USize](2, Stats[USize].mean(a))
+    h.assert_eq[USize](2, Mean[USize](a))
 
     let b: Array[F64] = [-1.0, 2.5, 3.25, 5.75]
-    h.assert_eq[F64](2.625, Stats[F64].mean(b))
+    h.assert_eq[F64](2.625, Mean[F64](b))
 
 class iso _TestMedian is UnitTest
-  fun name(): String =>
-    "Stats.median Stats.median_low Stats.median_high"
+  fun name(): String => "Median"
 
   fun apply(h: TestHelper) ? =>
     let a: Array[F64] = [1, 3, 5]
     let b: Array[F64] = [1, 3, 5, 7]
-    let stats = Stats[F64]
-    h.assert_eq[F64](3, stats.median(a))
-    h.assert_eq[F64](4, stats.median(b))
-    h.assert_eq[F64](3, stats.median_low(a))
-    h.assert_eq[F64](3, stats.median_low(b))
-    h.assert_eq[F64](3, stats.median_high(a))
-    h.assert_eq[F64](5, stats.median_high(b))
+    let median = Median[F64]
+    h.assert_eq[F64](3, median(a))
+    h.assert_eq[F64](4, median(b))
+    h.assert_eq[F64](3, median.low(a))
+    h.assert_eq[F64](3, median.low(b))
+    h.assert_eq[F64](3, median.high(a))
+    h.assert_eq[F64](5, median.high(b))
 
 class iso _TestMode is UnitTest
-  fun name(): String => "Stats.mode"
+  fun name(): String => "Mode"
 
   fun apply(h: TestHelper) ? =>
     let a: Array[USize] = [1, 1, 2, 3, 3, 3, 3, 4]
-    h.assert_eq[USize](3, Stats[USize].mode(a))
+    h.assert_eq[USize](3, Mode[USize](a))
+
+class iso _TestVariance is UnitTest
+  fun name(): String => "Variance"
+
+  fun apply(h: TestHelper) ? =>
+    let a: Array[F64] = [27.5, 30.25, 30.25, 34.5, 41.75]
+    h.assert_eq[String]("31.0188", Variance[F64](a).string())
+    h.assert_eq[String]("24.815", Variance[F64].pop(a).string())
+
+class iso _TestDeviation is UnitTest
+  fun name(): String => "Deviation"
+
+  fun apply(h: TestHelper) ? =>
+    let a: Array[F64] = [1.5, 2.5, 2.5, 2.75, 3.25, 4.75]
+    h.assert_eq[String]("1.08109", Deviation[F64](a).string())
+    h.assert_eq[String]("0.986893", Deviation[F64].pop(a).string())

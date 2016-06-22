@@ -1,2 +1,2 @@
 # pony-stats
-Common statistics functions for Pony
+Common statistics functiodata for Pony
