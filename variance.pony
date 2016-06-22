@@ -1,5 +1,5 @@
 
-primitive Variance[A: (Real[A] val & Number)]
+primitive Variance[A: (FloatingPoint[A] val & Float)]
   fun apply(data: Seq[A] box): A ? =>
     """
     Return the sample variance of the data. Raise an error if data has fewer

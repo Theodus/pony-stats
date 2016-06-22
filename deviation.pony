@@ -1,5 +1,5 @@
 
-primitive Deviation[A: (Real[A] val & Number & Sqrtable[A])]
+primitive Deviation[A: (FloatingPoint[A] val & Float)]
   fun apply(data: Seq[A] box): A ? =>
     """
     Return the sample standard deviation (the square root of the sample
@@ -15,6 +15,3 @@ primitive Deviation[A: (Real[A] val & Number & Sqrtable[A])]
     """
     let v = Variance[A].pop(data)
     v.sqrt()
-
-interface Sqrtable[A]
-  fun sqrt(): A

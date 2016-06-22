@@ -17,22 +17,21 @@ class iso _TestQuickSorter is UnitTest
   fun name(): String => "QuickSorter"
 
   fun apply(h: TestHelper) ? =>
-    let u: Array[USize] = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9]
-    let e: Array[USize] = [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 8, 9, 9, 9]
-    let s = QuickSorter[USize].sort(u)
+    let u: Array[F64] = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9]
+    let e: Array[F64] = [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 8, 9, 9, 9]
+    let s = QuickSorter[F64].sort(u)
     for i in Range(0, s.size()) do
-      h.assert_eq[USize](s(i), e(i))
+      h.assert_eq[F64](s(i), e(i))
     end
 
 class iso _TestMean is UnitTest
   fun name(): String => "Mean"
 
   fun apply(h: TestHelper) ? =>
-    let a: Array[USize] = [1, 2, 3, 4, 4]
-    h.assert_eq[USize](2, Mean[USize](a))
-
-    let b: Array[F64] = [-1.0, 2.5, 3.25, 5.75]
-    h.assert_eq[F64](2.625, Mean[F64](b))
+    let a: Array[F64] = [1, 2.5, 3.25, 5.75]
+    h.assert_eq[String]("3.125", Mean[F64](a).string())
+    h.assert_eq[String]("2.6144", Mean[F64].geometric(a).string())
+    h.assert_eq[String]("2.12584", Mean[F64].harmonic(a).string())
 
 class iso _TestMedian is UnitTest
   fun name(): String => "Median"
@@ -52,8 +51,8 @@ class iso _TestMode is UnitTest
   fun name(): String => "Mode"
 
   fun apply(h: TestHelper) ? =>
-    let a: Array[USize] = [1, 1, 2, 3, 3, 3, 3, 4]
-    h.assert_eq[USize](3, Mode[USize](a))
+    let a: Array[F64] = [1, 1, 2, 3, 3, 3, 3, 4]
+    h.assert_eq[F64](3, Mode[F64](a))
 
 class iso _TestVariance is UnitTest
   fun name(): String => "Variance"
