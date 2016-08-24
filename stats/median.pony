@@ -1,3 +1,4 @@
+use "collections"
 
 primitive Median[A: (Real[A] val & Number)]
   fun apply(data: Seq[A] box): A ? =>
@@ -6,7 +7,8 @@ primitive Median[A: (Real[A] val & Number)]
     middle two” method. Raise an error if data is empty.
     """
     if data.size() == 0 then error end
-    let ns = QuickSorter[A].sort(data)
+    let ns = Array[A](data.size()).append(data)
+    Sort[Array[A], A](ns)
     let s = ns.size()
     if (s % 2) == 1 then
       ns(s / 2)
@@ -20,7 +22,8 @@ primitive Median[A: (Real[A] val & Number)]
     Return the low median of the data. Raise an error if data is empty.
     """
     if data.size() == 0 then error end
-    let ns = QuickSorter[A].sort(data)
+    let ns = Array[A](data.size()).append(data)
+    Sort[Array[A], A](ns)
     let s = ns.size()
     if (s % 2) == 1 then
       ns(s / 2)
@@ -33,6 +36,7 @@ primitive Median[A: (Real[A] val & Number)]
     Return the high median of the data. Raise an error if data is empty.
     """
     if data.size() == 0 then error end
-    let ns = QuickSorter[A].sort(data)
+    let ns = Array[A](data.size()).append(data)
+    Sort[Array[A], A](ns)
     let s = ns.size()
     ns(s / 2)

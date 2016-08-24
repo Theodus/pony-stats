@@ -6,23 +6,11 @@ actor Main is TestList
   new make() => None
 
   fun tag tests(test: PonyTest) =>
-    test(_TestQuickSorter)
     test(_TestMean)
     test(_TestMedian)
     test(_TestMode)
     test(_TestVariance)
     test(_TestDeviation)
-
-class iso _TestQuickSorter is UnitTest
-  fun name(): String => "QuickSorter"
-
-  fun apply(h: TestHelper) ? =>
-    let u: Array[F64] = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9]
-    let e: Array[F64] = [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 8, 9, 9, 9]
-    let s = QuickSorter[F64].sort(u)
-    for i in Range(0, s.size()) do
-      h.assert_eq[F64](s(i), e(i))
-    end
 
 class iso _TestMean is UnitTest
   fun name(): String => "Mean"

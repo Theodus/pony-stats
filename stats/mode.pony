@@ -1,3 +1,4 @@
+use "collections"
 
 primitive Mode[A: (Real[A] val & Number)]
   fun apply(data: Seq[A] box): A ? =>
@@ -9,7 +10,8 @@ primitive Mode[A: (Real[A] val & Number)]
     | 0 => error
     | 1 => return data(0)
     end
-    let ns = QuickSorter[A].sort(data)
+    let ns = Array[A](data.size()).append(data)
+    Sort[Array[A], A](ns)
     var m = A(0)
     var mcount: USize = 0
     var v = A(0)
